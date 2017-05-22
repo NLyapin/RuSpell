@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="RuSpell plugin for Visual Studio 2010" Language="1049" Version="1.0.0.0" Manufacturer="Nikita Lyapin" UpgradeCode="ea2ed663-8fef-4250-accd-8783e7a7c050">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Media Id="1" Cabinet="RuSpellSetup.cab" EmbedCab="yes" CompressionLevel="high" />
+
+    <PropertyRef Id="VS2010_ROOT_FOLDER" />    
+    <PropertyRef Id="VS2010DEVENV" />
+        
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="VS2010_ROOT_FOLDER">
+        <Directory Id="Common7Folder" Name="Common7">
+          <Directory Id="IDEFolder" Name="IDE">
+            <Component Id="NHunspell" Guid="D32960D0-15FE-44A4-A726-A99E28118E8F">
+              <File Id="NHunspell.dll" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/NHunspell.dll" />
+              <File Id="Hunspellx86.dll" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/Hunspellx86.dll" />
+              <File Id="Hunspellx64.dll" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/Hunspellx64.dll" />
+              <File Id="ru_RU.aff" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/ru_RU.aff" />
+              <File Id="ru_RU.dic" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/ru_RU.dic" />
+            </Component>
+            <Directory Id="VSExtensionsFolder" Name="Extensions">
+              <Directory Id="RuSpell" Name="RuSpell">
+                <Component Id="RuSpell_Plugin" Guid="614B6786-4912-4085-BD60-E2C268B05628">
+                  <File Id="RuSpell.dll" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/RuSpell.dll" />
+                  <File Id="extension.vsixmanifest" Source="../../RuSpell/RuSpell/bin/$(var.BUILD)/extension.vsixmanifest" />                  
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>                          
+    </Directory>
+
+    <Feature Id="RuSpellForVS" Title="RuSpell plugin for Visual Studio 2010" Level="1">      
+			<ComponentRef Id="RuSpell_Plugin" />
+      <ComponentRef Id="NHunspell" />
+		</Feature>    
+    
+    <UIRef Id="WixUI_Minimal"/>
+	</Product>
+</Wix>
