@@ -1,3 +1,3 @@
-# RuSpell2010
+# RuSpell
 
 Клон репозитория https://ruspell.codeplex.com/
